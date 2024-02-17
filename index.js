@@ -7,7 +7,7 @@ const antiafk = require("mineflayer-antiafk");
 const pathfinder = require("mineflayer-pathfinder").pathfinder;
 const { GoalNear } = require("mineflayer-pathfinder").goals;
 
-import axios from "axios";
+const axios = require("axios");
 
 
 function createBot() {
