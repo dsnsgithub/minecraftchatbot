@@ -2,6 +2,7 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
     "dotenv": "^16.4.4",
+    "http-proxy-agent": "^7.0.2",
     "mineflayer": "^4.19.0",
     "mineflayer-antiafk": "github:Etiaro/mineflayer-antiafk",
     "mineflayer-pathfinder": "^2.4.5",

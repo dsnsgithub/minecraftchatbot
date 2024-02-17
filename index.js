@@ -9,6 +9,39 @@ const { GoalNear } = require("mineflayer-pathfinder").goals;
 
 const { translate } = require("@vitalets/google-translate-api");
 
+const messageQueue = [];
+let isProcessingQueue = false;
+
+async function processQueue() {
+	if (messageQueue.length === 0) {
+		isProcessingQueue = false;
+		return;
+	}
+
+	const { message, language, resolve, reject } = messageQueue.shift();
+
+	try {
+		const { text } = await translate(message, { to: language });
+		resolve(text);
+	} catch (error) {
+		reject(error);
+	}
+
+	// Wait for 1 second before processing the next message
+	setTimeout(processQueue, 1000);
+}
+
+async function translateWithRateLimit(message, language) {
+	return new Promise((resolve, reject) => {
+		messageQueue.push({ message, language, resolve, reject });
+
+		if (!isProcessingQueue) {
+			isProcessingQueue = true;
+			processQueue();
+		}
+	});
+}
+
 function createBot() {
 	const bot = mineflayer.createBot({
 		host: process.env["SERVER"],
@@ -109,9 +142,18 @@ function createBot() {
 
 			const translateMessage = userMessages[index];
 
-			const { text } = await translate(translateMessage, { to: language }).catch((err) => console.log(err));
-
-			bot.chat("Translated: " + text + " | " + junk);
+			try {
+				const text = await translateWithRateLimit(translateMessage, language);
+				bot.chat("Translated: " + text + " | " + junk);
+			} catch (error) {
+				if (error.name === "TooManyRequestsError") {
+					// Handle rate limit exceeded error
+					console.log("Rate limit exceeded. Message queued.");
+				} else {
+					// Handle other errors
+					console.error("Translation error:", error);
+				}
+			}
 		}
 
 		if (command == "help") {
@@ -152,7 +194,7 @@ function createBot() {
 
 	bot.on("kicked", (reason, loggedIn) => {
 		console.log("Kicked:", reason);
-		bot.end()
+		bot.end();
 	});
 
 	bot.on("error", (err) => {
@@ -164,7 +206,7 @@ function createBot() {
 		if (bot.viewer) {
 			bot.viewer.close();
 		}
-		
+
 		console.log("Disconnected... attempting to reconnect in 15 sec");
 
 		setTimeout(createBot, 15000);
