@@ -35,7 +35,7 @@ function createBot() {
 			}
 
 			if (rawMessage.includes("wants to teleport to you.")) {
-				const IGN = rawMessage.split(" ")[0]
+				const IGN = rawMessage.split(" ")[0];
 				bot.chat("/tpy " + IGN);
 			}
 
@@ -93,7 +93,7 @@ function createBot() {
 				}
 			} else if (args[1] && args[1].length == 2) {
 				const allowedLanguages = ["en", "es", "ru", "zh", "vi", "ta", "te"];
-				
+
 				if (allowedLanguages.includes(args[1].toLowerCase())) {
 					language = args[1].toLowerCase();
 				}
@@ -101,7 +101,7 @@ function createBot() {
 
 			if (args[2] && args[2].length == 2) {
 				const allowedLanguages = ["en", "es", "ru", "zh", "vi", "ta", "te"];
-				
+
 				if (allowedLanguages.includes(args[2].toLowerCase())) {
 					language = args[2].toLowerCase();
 				}
@@ -152,7 +152,10 @@ function createBot() {
 
 	bot.on("kicked", (reason, loggedIn) => {
 		console.log("Kicked:", reason);
-		bot.viewer.close();
+
+		if (bot.viewer) {
+			bot.viewer.close();
+		}
 
 		// If bot was logged in before being kicked, attempt to reconnect
 		if (loggedIn) {
@@ -162,13 +165,17 @@ function createBot() {
 
 	bot.on("error", (err) => {
 		console.log("Error:", err);
-		bot.viewer.close();
+		if (bot.viewer) {
+			bot.viewer.close();
+		}
 		// Attempt to reconnect on error
 		setTimeout(createBot, 15000); // Reconnect after 5 seconds
 	});
-	
+
 	bot.on("end", () => {
-		bot.viewer.close();
+		if (bot.viewer) {
+			bot.viewer.close();
+		}
 		console.log("Disconnected... attempting to reconnect in 15 sec");
 
 		setTimeout(createBot, 15000);
