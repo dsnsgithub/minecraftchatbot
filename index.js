@@ -24,6 +24,8 @@ function createBot() {
 
 	// sample message : Freddy37_ » be his femboy
 	bot.on("messagestr", async (rawMessage) => {
+		const junk = (Math.random() + 1).toString(36).substring(7);
+
 		// check if message is from server or whispers
 		if (!rawMessage.includes(" » ")) {
 			if (rawMessage.includes("Welcome to 6b6t.org")) {
@@ -67,12 +69,12 @@ function createBot() {
 
 		if (command == "translate") {
 			if (!args || !args[0]) {
-				bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast]");
+				bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast] | " + junk);
 				return;
 			}
 
 			if (!lastChatMessageDB[args[0]] || lastChatMessageDB[args[0]].length == 0) {
-				bot.chat("Haven't seen the user send a message yet.");
+				bot.chat("Haven't seen the user send a message yet. | " + junk);
 				return;
 			}
 
@@ -82,7 +84,7 @@ function createBot() {
 
 			if (args[1] && Number(args[1])) {
 				if (args[1] > userMessages.length) {
-					bot.chat("Haven't seen the user send that many messages yet.");
+					bot.chat("Haven't seen the user send that many messages yet. | " + junk);
 				}
 
 				if (Math.floor(Number(args[1])) >= 1) {
@@ -98,7 +100,7 @@ function createBot() {
 		}
 
 		if (command == "help") {
-			bot.chat("Commands: ?translate [IGN], ?help, ?coords");
+			bot.chat("Commands: ?translate [IGN], ?help, ?coords | " + junk);
 		}
 
 		if (command == "coords") {
@@ -153,7 +155,7 @@ function createBot() {
 	bot.on("end", () => {
 		bot.viewer.close();
 		console.log("Disconnected... attempting to reconnect in 15 sec");
-		
+
 		setTimeout(createBot, 15000);
 	});
 }
