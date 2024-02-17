@@ -71,7 +71,7 @@ bot.on("messagestr", async (rawMessage) => {
 
 	if (command == "translate") {
 		if (!args || !args[0]) {
-			bot.chat("Usage: /translate [IGN]");
+			bot.chat("Usage: ?translate [IGN]");
 			return;
 		}
 
@@ -89,7 +89,7 @@ bot.on("messagestr", async (rawMessage) => {
 	}
 
 	if (command == "help") {
-		bot.chat("Commands: /translate [IGN]");
+		bot.chat("Commands: ?translate [IGN], ?help");
 	}
 });
 
