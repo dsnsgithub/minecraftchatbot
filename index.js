@@ -7,8 +7,7 @@ const antiafk = require("mineflayer-antiafk");
 const pathfinder = require("mineflayer-pathfinder").pathfinder;
 const { GoalNear } = require("mineflayer-pathfinder").goals;
 
-const axios = require("axios");
-
+const axios = require("axios").default;
 
 function createBot() {
 	const bot = mineflayer.createBot({
@@ -25,6 +24,9 @@ function createBot() {
 
 	// sample message : Freddy37_ » be his femboy
 	bot.on("messagestr", async (rawMessage) => {
+		console.log(rawMessage)
+
+
 		const junk = (Math.random() + 1).toString(36).substring(7);
 
 		// check if message is from server or whispers
@@ -109,8 +111,9 @@ function createBot() {
 			}
 
 			const translateMessage = userMessages[index];
+
 			try {
-				const { result } = await axios.get("https://t.song.work/api", {
+				const { data } = await axios.get("https://t.song.work/api", {
 					params: {
 						text: translateMessage,
 						from: "auto",
@@ -119,7 +122,7 @@ function createBot() {
 					}
 				});
 
-				bot.chat("Translated: " + result + " | " + junk);
+				bot.chat("Translated: " + data.result + " | " + junk);
 			} catch (e) {
 				console.log(e);
 			}
