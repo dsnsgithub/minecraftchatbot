@@ -96,7 +96,7 @@ function createBot() {
 
 			const { text } = await translate(translateMessage, { to: "en" }).catch((err) => console.log(err));
 
-			bot.chat("Translated: " + text);
+			bot.chat("Translated: " + text + " | " + junk);
 		}
 
 		if (command == "help") {
