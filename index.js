@@ -8,39 +8,10 @@ const pathfinder = require("mineflayer-pathfinder").pathfinder;
 const { GoalNear } = require("mineflayer-pathfinder").goals;
 
 const { translate } = require("@vitalets/google-translate-api");
+const { HttpProxyAgent } = require("http-proxy-agent");
 
-const messageQueue = [];
-let isProcessingQueue = false;
-
-async function processQueue() {
-	if (messageQueue.length === 0) {
-		isProcessingQueue = false;
-		return;
-	}
-
-	const { message, language, resolve, reject } = messageQueue.shift();
-
-	try {
-		const { text } = await translate(message, { to: language });
-		resolve(text);
-	} catch (error) {
-		reject(error);
-	}
-
-	// Wait for 1 second before processing the next message
-	setTimeout(processQueue, 1000);
-}
-
-async function translateWithRateLimit(message, language) {
-	return new Promise((resolve, reject) => {
-		messageQueue.push({ message, language, resolve, reject });
-
-		if (!isProcessingQueue) {
-			isProcessingQueue = true;
-			processQueue();
-		}
-	});
-}
+const agent = new HttpProxyAgent("http://47.56.110.204:8989");
+const agent2 = new HttpProxyAgent("http://188.166.17.18:8881");
 
 function createBot() {
 	const bot = mineflayer.createBot({
@@ -143,15 +114,24 @@ function createBot() {
 			const translateMessage = userMessages[index];
 
 			try {
-				const text = await translateWithRateLimit(translateMessage, language);
+				const { text } = await translate(translateMessage, {
+					to: language,
+					fetchOptions: { agent }
+				});
+
 				bot.chat("Translated: " + text + " | " + junk);
-			} catch (error) {
-				if (error.name === "TooManyRequestsError") {
-					// Handle rate limit exceeded error
-					console.log("Rate limit exceeded. Message queued.");
-				} else {
-					// Handle other errors
-					console.error("Translation error:", error);
+			} catch (e) {
+				if (e.name === "TooManyRequestsError") {
+					try {
+						const { text } = await translate(translateMessage, {
+							to: language,
+							fetchOptions: { agent }
+						});
+
+						bot.chat("Translated: " + text + " | " + junk);
+					} catch (e) {
+						console.log(e);
+					}
 				}
 			}
 		}
