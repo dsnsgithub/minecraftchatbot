@@ -152,30 +152,19 @@ function createBot() {
 
 	bot.on("kicked", (reason, loggedIn) => {
 		console.log("Kicked:", reason);
-
-		if (bot.viewer) {
-			bot.viewer.close();
-		}
-
-		// If bot was logged in before being kicked, attempt to reconnect
-		if (loggedIn) {
-			setTimeout(createBot, 15000); // Reconnect after 5 seconds
-		}
+		bot.end()
 	});
 
 	bot.on("error", (err) => {
 		console.log("Error:", err);
-		if (bot.viewer) {
-			bot.viewer.close();
-		}
-		// Attempt to reconnect on error
-		setTimeout(createBot, 15000); // Reconnect after 5 seconds
+		bot.end();
 	});
 
 	bot.on("end", () => {
 		if (bot.viewer) {
 			bot.viewer.close();
 		}
+		
 		console.log("Disconnected... attempting to reconnect in 15 sec");
 
 		setTimeout(createBot, 15000);
