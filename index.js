@@ -109,7 +109,7 @@ function createBot() {
 
 			const translateMessage = userMessages[index];
 
-			const { text } = await translate(translateMessage, { to: "en" }).catch((err) => console.log(err));
+			const { text } = await translate(translateMessage, { to: language }).catch((err) => console.log(err));
 
 			bot.chat("Translated: " + text + " | " + junk);
 		}
