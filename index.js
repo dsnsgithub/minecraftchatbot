@@ -121,11 +121,12 @@ function createBot() {
 
 				bot.chat("Translated: " + text + " | " + junk);
 			} catch (e) {
+				console.log(e)
 				if (e.name === "TooManyRequestsError") {
 					try {
 						const { text } = await translate(translateMessage, {
 							to: language,
-							fetchOptions: { agent }
+							fetchOptions: { agent2 }
 						});
 
 						bot.chat("Translated: " + text + " | " + junk);
