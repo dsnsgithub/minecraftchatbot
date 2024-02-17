@@ -10,8 +10,8 @@ const { GoalNear } = require("mineflayer-pathfinder").goals;
 const { translate } = require("@vitalets/google-translate-api");
 const { HttpProxyAgent } = require("http-proxy-agent");
 
-const agent = new HttpProxyAgent("47.56.110.204:8989");
-const agent2 = new HttpProxyAgent("188.166.17.18:8881");
+const agent = new HttpProxyAgent("http://47.56.110.204:8989");
+const agent2 = new HttpProxyAgent("http://188.166.17.18:8881");
 
 function createBot() {
 	const bot = mineflayer.createBot({
