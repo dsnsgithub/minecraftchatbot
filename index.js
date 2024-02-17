@@ -7,11 +7,8 @@ const antiafk = require("mineflayer-antiafk");
 const pathfinder = require("mineflayer-pathfinder").pathfinder;
 const { GoalNear } = require("mineflayer-pathfinder").goals;
 
-const { translate } = require("@vitalets/google-translate-api");
-const { HttpProxyAgent } = require("http-proxy-agent");
+import axios from "axios";
 
-const agent = new HttpProxyAgent("http://47.56.110.204:8989");
-const agent2 = new HttpProxyAgent("http://188.166.17.18:8881");
 
 function createBot() {
 	const bot = mineflayer.createBot({
@@ -112,26 +109,19 @@ function createBot() {
 			}
 
 			const translateMessage = userMessages[index];
-
 			try {
-				const { text } = await translate(translateMessage, {
-					to: language,
-					fetchOptions: { agent }
+				const { result } = await axios.get("https://t.song.work/api", {
+					params: {
+						text: translateMessage,
+						from: "auto",
+						to: language,
+						lite: true
+					}
 				});
 
-				bot.chat("Translated: " + text + " | " + junk);
+				bot.chat("Translated: " + result + " | " + junk);
 			} catch (e) {
 				console.log(e);
-				try {
-					const { text } = await translate(translateMessage, {
-						to: language,
-						fetchOptions: { agent2 }
-					});
-
-					bot.chat("Translated: " + text + " | " + junk);
-				} catch (e) {
-					console.log(e);
-				}
 			}
 		}
 
