@@ -70,7 +70,7 @@ function createBot() {
 
 		if (command == "translate") {
 			if (!args || !args[0]) {
-				bot.chat("Usage: ?translate [IGN]");
+				bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast]");
 				return;
 			}
 
@@ -80,7 +80,20 @@ function createBot() {
 			}
 
 			const userMessages = lastChatMessageDB[args[0]];
-			const translateMessage = userMessages[userMessages.length - 1];
+
+			let index = userMessages.length - 1;
+
+			if (args[1] && Number(args[1])) {
+				if (args[1] > userMessages.length) {
+					bot.chat("Haven't seen the user send that many messages yet.");
+				}
+
+				if (Math.floor(Number(args[1])) >= 1) {
+					index = userMessages.length - Math.floor(Number(args[1]));
+				}
+			}
+
+			const translateMessage = userMessages[index];
 
 			const { text } = await translate(translateMessage, { to: "en" }).catch((err) => console.log(err));
 
