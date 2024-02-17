@@ -32,12 +32,9 @@ function createBot() {
 				bot.afk.start();
 			}
 
-			if (rawMessage.includes("DSNS whispers: tpa")) {
-				bot.chat("/tpy DSNS");
-			}
-
-			if (rawMessage.includes("DSNS whispers: coords")) {
-				bot.chat("/msg DSNS " + `X: ${bot.entity.position.x.toFixed(1)} Y: ${bot.entity.position.y.toFixed(1)} Z: ${bot.entity.position.z.toFixed(1)}`);
+			if (rawMessage.includes("wants to teleport to you.")) {
+				const IGN = rawMessage.split(" ")[0]
+				bot.chat("/tpy " + IGN);
 			}
 
 			return;
@@ -101,7 +98,11 @@ function createBot() {
 		}
 
 		if (command == "help") {
-			bot.chat("Commands: ?translate [IGN], ?help");
+			bot.chat("Commands: ?translate [IGN], ?help, ?coords");
+		}
+
+		if (command == "coords") {
+			bot.chat(`My Coords: X: ${bot.entity.position.x.toFixed(1)} Y: ${bot.entity.position.y.toFixed(1)} Z: ${bot.entity.position.z.toFixed(1)}`);
 		}
 	});
 
@@ -134,6 +135,8 @@ function createBot() {
 
 	bot.on("kicked", (reason, loggedIn) => {
 		console.log("Kicked:", reason);
+		bot.viewer.close();
+
 		// If bot was logged in before being kicked, attempt to reconnect
 		if (loggedIn) {
 			setTimeout(createBot, 15000); // Reconnect after 5 seconds
@@ -142,12 +145,15 @@ function createBot() {
 
 	bot.on("error", (err) => {
 		console.log("Error:", err);
+		bot.viewer.close();
 		// Attempt to reconnect on error
 		setTimeout(createBot, 15000); // Reconnect after 5 seconds
 	});
 	
 	bot.on("end", () => {
+		bot.viewer.close();
 		console.log("Disconnected... attempting to reconnect in 15 sec");
+		
 		setTimeout(createBot, 15000);
 	});
 }
