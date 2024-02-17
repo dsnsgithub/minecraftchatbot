@@ -81,6 +81,7 @@ function createBot() {
 			const userMessages = lastChatMessageDB[args[0]];
 
 			let index = userMessages.length - 1;
+			let language = "en";
 
 			if (args[1] && Number(args[1])) {
 				if (args[1] > userMessages.length) {
@@ -89,6 +90,20 @@ function createBot() {
 
 				if (Math.floor(Number(args[1])) >= 1) {
 					index = userMessages.length - Math.floor(Number(args[1]));
+				}
+			} else if (args[1] && args[1].length == 2) {
+				const allowedLanguages = ["en", "es", "ru", "zh", "vi", "ta", "te"];
+				
+				if (allowedLanguages.includes(args[1].toLowerCase())) {
+					language = args[1].toLowerCase();
+				}
+			}
+
+			if (args[2] && args[2].length == 2) {
+				const allowedLanguages = ["en", "es", "ru", "zh", "vi", "ta", "te"];
+				
+				if (allowedLanguages.includes(args[2].toLowerCase())) {
+					language = args[2].toLowerCase();
 				}
 			}
 
