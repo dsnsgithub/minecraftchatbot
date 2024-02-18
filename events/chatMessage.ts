@@ -121,7 +121,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 			user = args[0];
 		}
 
-		bot.chat(`Kills: ${playerDB[user]["kills"]} | Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
+		bot.chat(`Kills: ${playerDB[user]["kills"]}, Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
 	}
 }
 
