@@ -117,7 +117,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 	}
 
 	if (command == "help") {
-		bot.chat("Commands: ?translate [IGN], ?help, ?coords | " + junk);
+		bot.chat("Commands: ?translate [IGN], ?help, ?coords, ?kd, ?mostkills, ?mostdeaths | " + junk);
 	}
 
 	if (command == "coords") {
@@ -132,6 +132,34 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 		}
 
 		bot.chat(`Kills: ${playerDB[user]["kills"]}, Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
+	}
+
+	if (command == "mostkills") {
+		let mostKills = 0;
+		let mostKillsUser = "";
+
+		for (const user in playerDB) {
+			if (playerDB[user]["kills"] > mostKills) {
+				mostKills = playerDB[user]["kills"];
+				mostKillsUser = user;
+			}
+		}
+
+		bot.chat(`${mostKillsUser} killed the most people with ${mostKills} kills. | ${junk}`);
+	}
+
+	if (command == "mostdeaths") {
+		let mostDeaths = 0;
+		let mostDeathsUser = "";
+
+		for (const user in playerDB) {
+			if (playerDB[user]["deaths"] > mostDeaths) {
+				mostDeaths = playerDB[user]["deaths"];
+				mostDeathsUser = user;
+			}
+		}
+
+		bot.chat(`${mostDeathsUser} died the most with ${mostDeaths} deaths. | ${junk}`);
 	}
 }
 
