@@ -1,6 +1,16 @@
 import fs from "fs";
 import { Bot } from "mineflayer";
 
+export interface PlayerDB {
+	[IGN: string]: Player;
+}
+
+export interface Player {
+	messages: string[];
+	kills: number;
+	deaths: number;
+}
+
 function addDeath(IGN: string, playerDB: PlayerDB) {
 	if (!playerDB[IGN]) {
 		playerDB[IGN] = {

@@ -6,6 +6,16 @@ import { Bot } from "mineflayer";
 
 import crypto from "crypto";
 
+export interface PlayerDB {
+	[IGN: string]: Player;
+}
+
+export interface Player {
+	messages: string[];
+	kills: number;
+	deaths: number;
+}
+
 const env = load({
 	PASSWORD: String,
 	WEB: Boolean,
