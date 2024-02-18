@@ -1,16 +1,6 @@
 import fs from "fs";
 import { Bot } from "mineflayer";
 
-interface PlayerDB {
-	[IGN: string]: Player;
-}
-
-interface Player {
-	messages: string[];
-	kills: number;
-	deaths: number;
-}
-
 function addDeath(IGN: string, playerDB: PlayerDB) {
 	if (!playerDB[IGN]) {
 		playerDB[IGN] = {
@@ -71,8 +61,9 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 	}
 
 	if (rawMessage.includes("using an end crystal")) {
-		const victimIGN = rawMessage.split(" ")[0];
-		const killerIGN = rawMessage.split(" ")[6];
+		const splitMessage = rawMessage.split(" ");
+		const victimIGN = splitMessage[0];
+		const killerIGN = splitMessage[splitMessage.length - 5];
 
 		addKill(victimIGN, killerIGN, playerDB);
 	}

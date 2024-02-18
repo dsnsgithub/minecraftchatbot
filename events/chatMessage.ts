@@ -14,16 +14,6 @@ const env = load({
 	SERVER: String
 });
 
-interface PlayerDB {
-	[IGN: string]: Player;
-}
-
-interface Player {
-	messages: string[];
-	kills: number;
-	deaths: number;
-}
-
 async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 	console.log("[CHAT] " + rawMessage);
 

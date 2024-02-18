@@ -10,17 +10,10 @@ import fs from "fs";
 
 const playerDB = JSON.parse(fs.readFileSync("./db/playerDB.json", "utf8"));
 
-interface Viewer {
-	erase(id: string): void;
-	drawBoxGrid(id: string, start: any, end: any, color?: string): void;
-	drawLine(id: string, points: any[], color?: number): void;
-	drawPoints(id: string, points: any[], color?: number, size?: number): void;
-	close(): void;
-}
-
 declare module "mineflayer" {
 	interface Bot {
 		viewer: Viewer;
+		afk: afk;
 	}
 }
 
