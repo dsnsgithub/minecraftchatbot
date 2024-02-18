@@ -22,10 +22,8 @@ function createBot() {
 	let registered = false;
 	let lastChatMessageDB = [];
 
-	// sample message : Freddy37_ » be his femboy
 	bot.on("messagestr", async (rawMessage) => {
-		console.log(rawMessage)
-
+		console.log(rawMessage);
 
 		const junk = (Math.random() + 1).toString(36).substring(7);
 
@@ -72,7 +70,7 @@ function createBot() {
 
 		if (command == "translate") {
 			if (!args || !args[0]) {
-				bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast] | " + junk);
+				bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast] [optional: language] | " + junk);
 				return;
 			}
 
