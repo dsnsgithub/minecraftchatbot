@@ -1,5 +1,5 @@
 # Translation Chat Bot in Minecraft
-This is a Minecraft Chat Bot that allows for communication between people who speak different languages.
+This is a Minecraft Chat Bot that allows for communication between people who speak different languages, mainly designed for anarchy servers.
 
 ![image](https://github.com/dsnsgithub/minecraftchatbot/assets/48170013/9ae69b9c-b152-4c45-800e-745eaeeef5a2)
 
