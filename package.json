@@ -5,6 +5,7 @@
     "mineflayer": "^4.19.0",
     "mineflayer-antiafk": "github:Etiaro/mineflayer-antiafk",
     "mineflayer-pathfinder": "^2.4.5",
-    "prismarine-viewer": "^1.28.0"
+    "prismarine-viewer": "^1.28.0",
+    "ts-dotenv": "^0.9.1"
   }
 }
