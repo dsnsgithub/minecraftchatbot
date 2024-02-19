@@ -139,7 +139,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 			};
 		}
 
-		bot.chat(`Kills: ${playerDB[user]["kills"]}, Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
+		bot.chat(`(${user}) Kills: ${playerDB[user]["kills"]}, Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
 	}
 
 	if (command == "mostkills") {
