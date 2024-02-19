@@ -6,27 +6,27 @@ This is a Minecraft Chat Bot that allows for communication between people who sp
 
 ## Features
 
-### 1. Translate Command
+#### 1. Translate Command
 - **Description**: This command allows users to request translation of messages from other players using the [Translateer API](https://t.song.work/).
 - **Usage**: Users can utilize the `?translate [IGN] [optional: messagesSinceLast] [optional: language]` command to translate messages from one language to another.
    
-### 2. Help Command
+#### 2. Help Command
 - **Description**: This command provides users with a list of available commands.
 - **Usage**: Users can trigger this command by typing `?help` in the chat.
 
-### 3. Coordinates Display Command
+#### 3. Coordinates Display Command
 - **Description**: This command allows users to see the bot's current coordinates within the Minecraft world.
 - **Usage**: Users can use the `?coords` command to request the bot's coordinates.
 
-### 4. KD (Kill/Death Ratio) Command
+#### 4. KD (Kill/Death Ratio) Command
 - **Description**: This command provides information about a player's kill and death counts, or the kill and death counts of a specified player.
 - **Usage**: Users can either check their own kill/death ratio or specify another player's IGN to check theirs.
 
-### 5. Most Kills Command
+#### 5. Most Kills Command
 - **Description**: This command displays the player who has the highest number of kills along with their kill count.
 - **Usage**: Users can use this command to find out who has the most kills in the server.
 
-### 6. Most Deaths Command
+#### 6. Most Deaths Command
 - **Description**: This command displays the player who has the highest number of deaths along with their death count.
 - **Usage**: Users can use this command to find out who has the most deaths in the server.
 
