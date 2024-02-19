@@ -15,12 +15,12 @@ const allowedLanguages = [
 
 export default async function translate(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB, junk: string) {
 	if (!args || !args[0]) {
-		bot.chat("Usage: ?translate [IGN] [optional: messagesSinceLast] [optional: language] | " + junk);
+		bot.sendMessage("Usage: ?translate [IGN] [optional: messagesSinceLast] [optional: language] | " + junk);
 		return;
 	}
 
 	if (!playerDB[args[0]] || playerDB[args[0]]["messages"].length == 0) {
-		bot.chat("Haven't seen the user send a message yet. | " + junk);
+		bot.sendMessage("Haven't seen the user send a message yet. | " + junk);
 		return;
 	}
 
@@ -31,7 +31,7 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 
 	if (args[1] && Number(args[1])) {
 		if (Number(args[1]) > userMessages.length) {
-			bot.chat("Haven't seen the user send that many messages yet. | " + junk);
+			bot.sendMessage("Haven't seen the user send that many messages yet. | " + junk);
 		}
 
 		if (Math.floor(Number(args[1])) >= 1) {
@@ -61,8 +61,8 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 			}
 		});
 
-		bot.chat("Translated: " + data.result + " | " + junk);
+		bot.sendMessage("Translated: " + data.result + " | " + junk);
 	} catch (e) {
-		bot.chat("An error occurred while translating. Try again later." + " | " + junk);
+		bot.sendMessage("An error occurred while translating. Try again later." + " | " + junk);
 	}
 }

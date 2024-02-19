@@ -12,5 +12,5 @@ export default async function mostdeaths(bot: Bot, IGN: string, args: string[], 
 		}
 	}
 
-	bot.chat(`${mostDeathsUser} died the most with ${mostDeaths} deaths. | ${junk}`);
+	bot.sendMessage(`${mostDeathsUser} died the most with ${mostDeaths} deaths. | ${junk}`);
 }

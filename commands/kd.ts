@@ -16,5 +16,5 @@ export default async function kd(bot: Bot, IGN: string, args: string[], playerDB
 		};
 	}
 
-	bot.chat(`${user} has ${playerDB[user]["kills"]} kills and ${playerDB[user]["deaths"]} deaths. | ${junk}`);
+	bot.sendMessage(`${user} has ${playerDB[user]["kills"]} kills and ${playerDB[user]["deaths"]} deaths. | ${junk}`);
 }

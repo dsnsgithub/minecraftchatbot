@@ -21,6 +21,7 @@ export default function extendBot(bot: Bot) {
 	};
 
 	bot.sendMessageInstantly = function (message: string) {
+		bot.chat(message);
 		this.lastMessageSentTime = new Date().getTime();
 	};
 

@@ -12,5 +12,5 @@ export default async function mostkills(bot: Bot, IGN: string, args: string[], p
 		}
 	}
 
-	bot.chat(`${mostKillsUser} killed the most people with ${mostKills} kills. | ${junk}`);
+	bot.sendMessage(`${mostKillsUser} killed the most people with ${mostKills} kills. | ${junk}`);
 }
