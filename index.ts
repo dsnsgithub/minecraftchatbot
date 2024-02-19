@@ -8,10 +8,12 @@ import mineflayer from "mineflayer";
 import { mineflayer as prismarineViewer } from "prismarine-viewer"; // Corrected import
 import antiafk from "mineflayer-antiafk";
 import pathfinder from "mineflayer-pathfinder";
+import SimpleLimiter from "simple-call-limiter";
+
 import { Vec3 } from "vec3";
 
 import { Viewer, afk } from "./types";
-import extendBot from "./mineflayer-extension";
+
 declare module "mineflayer" {
 	interface Bot {
 		viewer: Viewer;
@@ -43,7 +45,12 @@ function createBot() {
 
 	bot.loadPlugin(pathfinder.pathfinder);
 	bot.loadPlugin(antiafk);
-	extendBot(bot)
+	
+	const limiter = new SimpleLimiter(3000);
+
+	bot.sendMessage = function (message: string) {
+		limiter.run(bot.chat, message);
+	};
 
 	let registered = false;
 
