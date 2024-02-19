@@ -46,7 +46,7 @@ function createBot() {
 	bot.loadPlugin(pathfinder.pathfinder);
 	bot.loadPlugin(antiafk);
 	
-	const limiter = new SimpleLimiter(3000);
+	const limiter = new SimpleLimiter(5000);
 	bot.sendMessage = function (message: string) {
 		limiter.run(bot.chat, message);
 	};
