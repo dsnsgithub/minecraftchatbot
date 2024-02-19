@@ -47,7 +47,6 @@ function createBot() {
 	bot.loadPlugin(antiafk);
 	
 	const limiter = new SimpleLimiter(3000);
-
 	bot.sendMessage = function (message: string) {
 		limiter.run(bot.chat, message);
 	};

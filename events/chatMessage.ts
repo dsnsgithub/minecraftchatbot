@@ -36,8 +36,6 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 
 	// chat history
 	if (cmd.charAt(0) != env["PREFIX"]) {
-		if (IGN == "kazwqi") return;
-
 		if (!playerDB[IGN]) {
 			playerDB[IGN] = {
 				messages: [],
@@ -47,6 +45,10 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 		}
 
 		playerDB[IGN]["messages"].push(right);
+
+		if (playerDB[IGN]["messages"].length > 10) {
+			playerDB[IGN]["messages"].splice(0, playerDB[IGN]["messages"].length - 10);
+		}
 
 		fs.writeFileSync("./db/playerDB.json", JSON.stringify(playerDB));
 

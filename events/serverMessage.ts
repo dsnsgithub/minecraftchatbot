@@ -69,13 +69,6 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 
 		addKill(victimIGN, killerIGN, playerDB);
 	}
-
-	if (rawMessage.includes("was blown up")) {
-		const victimIGN = rawMessage.split(" ")[0];
-		const killerIGN = rawMessage.split(" ")[5];
-
-		addKill(victimIGN, killerIGN, playerDB);
-	}
 }
 
 export default handleServerMessage;
