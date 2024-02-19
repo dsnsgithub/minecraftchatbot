@@ -1,3 +1,4 @@
 node_modules/
 .env
+db/playerDB.json
 package-lock.json

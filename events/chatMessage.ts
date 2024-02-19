@@ -31,7 +31,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 	const [left, right] = rawMessage.split(" » ");
 
 	// checks if they have a rank
-	const IGN = left.split(" ").length > 1 ? left.split(" ")[1] : left.split(" ")[0];
+	const IGN = left.split(" ").length > 1 ? left.split("] ")[1] : left.split(" ")[0];
 
 	const cmd = right.split(" ")[0];
 	const args = right.split(" ").slice(1);
