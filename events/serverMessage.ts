@@ -51,9 +51,22 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		bot.chat("/deathmsgs on");
 		bot.chat("/connectionmsgs on");
 
-		const junk = crypto.randomBytes(4).toString("hex");
+		const preMadeSentences = [
+			"Teleport to spawn with /tpa DSNSbot",
+			"/tpa DSNSbot to teleport back to spawn",
+			"Want to get back to spawn? /tpa DSNSbot",
+			"Interested in going back to spawn? Try /tpa DSNSbot",
+			"Use /tpa DSNSbot to instantly teleport to the spawn area",
+			"Want to respawn quickly? Use /tpa DSNSbot",
+			"Ready to teleport to spawn? Type /tpa DSNSbot",
+			"Teleport directly to spawn by typing /tpa DSNSbot"
+		];
+
 		setInterval(() => {
-			bot.sendMessage("Teleport to spawn with /tpa " + bot.username + " | " + junk);
+			const randomSentence = preMadeSentences[Math.floor(Math.random() * preMadeSentences.length)];
+			const junk = crypto.randomBytes(4).toString("hex");
+
+			bot.sendMessage(`${randomSentence}| ${junk}`);
 		}, 60000);
 	}
 
