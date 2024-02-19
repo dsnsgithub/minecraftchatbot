@@ -131,6 +131,14 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 			user = args[0];
 		}
 
+		if (!playerDB[user]) {
+			playerDB[IGN] = {
+				messages: [],
+				kills: 0,
+				deaths: 0
+			};
+		}
+
 		bot.chat(`Kills: ${playerDB[user]["kills"]}, Deaths: ${playerDB[user]["deaths"]} | ${junk}`);
 	}
 
