@@ -1,7 +1,9 @@
 import fs from "fs";
+import crypto from "crypto";
 
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
+
 
 function addDeath(IGN: string, playerDB: PlayerDB) {
 	if (!playerDB[IGN]) {
@@ -48,6 +50,11 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 
 		bot.chat("/deathmsgs on");
 		bot.chat("/connectionmsgs on");
+
+		const junk = crypto.randomBytes(4).toString("hex");
+		setInterval(() => {
+			bot.sendMessage("Teleport to spawn with /tpa " + bot.username + " | " + junk);
+		}, 60000);
 	}
 
 	if (rawMessage.includes("wants to teleport to you.")) {
