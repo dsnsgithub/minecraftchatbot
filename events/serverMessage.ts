@@ -67,7 +67,7 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 			const junk = crypto.randomBytes(4).toString("hex");
 
 			bot.sendMessage(`${randomSentence}| ${junk}`);
-		}, 60000);
+		}, 600000);
 	}
 
 	if (rawMessage.includes("wants to teleport to you.")) {
