@@ -11,6 +11,7 @@ import help from "../commands/help";
 import coords from "../commands/coords";
 import kd from "../commands/kd";
 import mostkills from "../commands/mostkills";
+import mostdeaths from "../commands/mostdeaths";
 
 const env = load({
 	PASSWORD: String,
@@ -57,7 +58,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 	if (command == "coords") coords(bot, IGN, args, playerDB, junk);
 	if (command == "kd") kd(bot, IGN, args, playerDB, junk);
 	if (command == "mostkills") mostkills(bot, IGN, args, playerDB, junk);
-	if (command == "mostdeaths") mostkills(bot, IGN, args, playerDB, junk);
+	if (command == "mostdeaths") mostdeaths(bot, IGN, args, playerDB, junk);
 }
 
 export default handleChatMessage;
