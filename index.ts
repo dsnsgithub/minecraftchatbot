@@ -45,7 +45,7 @@ function createBot() {
 
 	bot.loadPlugin(pathfinder.pathfinder);
 	bot.loadPlugin(antiafk);
-	
+
 	const limiter = new SimpleLimiter(5000);
 	bot.sendMessage = function (message: string) {
 		limiter.run(bot.chat, message);
@@ -54,10 +54,15 @@ function createBot() {
 	let registered = false;
 
 	bot.on("messagestr", async (rawMessage) => {
-		if (!rawMessage.includes(" » ")) {
-			handleServerMessage(bot, rawMessage, playerDB);
-		} else {
-			handleChatMessage(bot, rawMessage, playerDB);
+		try {
+			if (!rawMessage.includes(" » ")) {
+				handleServerMessage(bot, rawMessage, playerDB);
+			} else {
+				handleChatMessage(bot, rawMessage, playerDB);
+			}
+		} catch (error) {
+			console.error(error);
+			bot.sendMessage("Something went wrong, try again later.");
 		}
 	});
 
