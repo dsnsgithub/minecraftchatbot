@@ -44,7 +44,16 @@ function createBot() {
 	});
 
 	bot.loadPlugin(pathfinder.pathfinder);
-	bot.loadPlugin(antiafk);
+
+	setInterval(() => {
+		bot.look(Math.random() * 2 * Math.PI - Math.PI, Math.random() * Math.PI - Math.PI / 2);
+		bot.swingArm("right", Math.random() > 0.5)
+
+		bot.setControlState("forward", true);
+		bot.setControlState("jump", true);
+	}, 1000)
+
+	// bot.loadPlugin(antiafk);
 
 	const limiter = new SimpleLimiter(5000);
 	bot.sendMessage = function (message: string) {

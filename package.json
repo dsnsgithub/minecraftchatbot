@@ -2,7 +2,6 @@
   "dependencies": {
     "axios": "^1.6.7",
     "mineflayer": "^4.19.0",
-    "mineflayer-antiafk": "github:Etiaro/mineflayer-antiafk",
     "mineflayer-pathfinder": "^2.4.5",
     "prismarine-viewer": "^1.28.0",
     "simple-call-limiter": "^1.0.4",
