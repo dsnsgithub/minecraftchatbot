@@ -68,7 +68,7 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		setInterval(() => {
 			const randomSentence = preMadeSentences[Math.floor(Math.random() * preMadeSentences.length)];
 			bot.sendMessage(`${randomSentence}`);
-		}, 300000);
+		}, 180000);
 	}
 
 	if (rawMessage.includes("wants to teleport to you.")) {
@@ -79,7 +79,7 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 	const deathTriggers = [
 		"died",
 		"was killed by",
-		"fell from a high place",
+		"high place",
 		"burned to death",
 		"drowned",
 		"starved to death",
@@ -87,28 +87,33 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		"killed themselves",
 		"thought they could swim forever",
 		"shot by",
-		"blew up"
+		"blew up",
+		"slain by a Zombie",
 	];
+
 	if (deathTriggers.some((trigger) => rawMessage.includes(trigger))) {
 		const IGN = rawMessage.split(" ")[0];
 
 		addDeath(IGN, playerDB);
+		return;
 	}
 
-	if (rawMessage.includes("using an end crystal")) {
-		const splitMessage = rawMessage.split(" ");
-		const victimIGN = splitMessage[0];
-		const killerIGN = splitMessage[splitMessage.length - 5];
+	const messageKeywords = {
+		"using an end crystal": { victimIndex: 0, killerIndex: -5 },
+		crystalled: { victimIndex: 2, killerIndex: 0 },
+		"was slain by": { victimIndex: 0, killerIndex: 4 }
+	};
 
-		addKill(victimIGN, killerIGN, playerDB);
-	}
+	for (const keyword in messageKeywords) {
+		if (rawMessage.includes(keyword)) {
+			const { victimIndex, killerIndex } = messageKeywords[keyword as keyof typeof messageKeywords];
+			const splitMessage = rawMessage.split(" ");
+			const victimIGN = splitMessage[victimIndex];
+			const killerIGN = splitMessage[killerIndex];
 
-	if (rawMessage.includes("crystalled")) {
-		const splitMessage = rawMessage.split(" ");
-		const killerIGN = splitMessage[0];
-		const victimIGN = splitMessage[2];
-
-		addKill(victimIGN, killerIGN, playerDB);
+			addKill(victimIGN, killerIGN, playerDB);
+			return; // Assuming only one condition can match
+		}
 	}
 }
 
