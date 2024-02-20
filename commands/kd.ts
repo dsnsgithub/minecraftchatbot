@@ -15,7 +15,7 @@ export default async function kd(bot: Bot, IGN: string, args: string[], playerDB
 	}
 
 	if (!playerDB[user]) {
-		playerDB[IGN] = {
+		playerDB[user] = {
 			messages: [],
 			kills: 0,
 			deaths: 0
