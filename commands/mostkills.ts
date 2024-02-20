@@ -1,7 +1,7 @@
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
 
-export default async function mostkills(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB, junk: string) {
+export default async function mostkills(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB) {
 	let mostKills = 0;
 	let mostKillsUser = "";
 
@@ -12,5 +12,5 @@ export default async function mostkills(bot: Bot, IGN: string, args: string[], p
 		}
 	}
 
-	bot.sendMessage(`${mostKillsUser} killed the most people with ${mostKills} kills. | ${junk}`);
+	bot.sendMessage(`${mostKillsUser} killed the most people with ${mostKills} kills.`);
 }

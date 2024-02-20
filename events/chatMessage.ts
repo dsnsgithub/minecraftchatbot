@@ -1,7 +1,6 @@
 import { load } from "ts-dotenv";
 
 import fs from "fs";
-import crypto from "crypto";
 
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
@@ -24,7 +23,6 @@ const env = load({
 async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 	console.log("[CHAT] " + rawMessage);
 
-	const junk = crypto.randomBytes(8).toString("hex");
 	const [left, right] = rawMessage.split(" » ");
 
 	const IGN = left.split(" ").length > 1 ? left.split("] ")[1] : left.split(" ")[0];
@@ -55,12 +53,12 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 		return;
 	}
 
-	if (command == "translate") translate(bot, IGN, args, playerDB, junk);
-	if (command == "help") help(bot, IGN, args, playerDB, junk);
-	if (command == "coords") coords(bot, IGN, args, playerDB, junk);
-	if (command == "kd") kd(bot, IGN, args, playerDB, junk);
-	if (command == "mostkills") mostkills(bot, IGN, args, playerDB, junk);
-	if (command == "mostdeaths") mostdeaths(bot, IGN, args, playerDB, junk);
+	if (command == "translate") translate(bot, IGN, args, playerDB);
+	if (command == "help") help(bot, IGN, args, playerDB);
+	if (command == "coords") coords(bot, IGN, args, playerDB);
+	if (command == "kd") kd(bot, IGN, args, playerDB);
+	if (command == "mostkills") mostkills(bot, IGN, args, playerDB);
+	if (command == "mostdeaths") mostdeaths(bot, IGN, args, playerDB);
 }
 
 export default handleChatMessage;

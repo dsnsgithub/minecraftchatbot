@@ -1,5 +1,4 @@
 import fs from "fs";
-import crypto from "crypto";
 
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
@@ -64,10 +63,8 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 
 		setInterval(() => {
 			const randomSentence = preMadeSentences[Math.floor(Math.random() * preMadeSentences.length)];
-			const junk = crypto.randomBytes(8).toString("hex");
-
-			bot.sendMessage(`${randomSentence}| ${junk}`);
-		}, 600000);
+			bot.sendMessage(`${randomSentence}`);
+		}, 300000);
 	}
 
 	if (rawMessage.includes("wants to teleport to you.")) {

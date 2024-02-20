@@ -1,5 +1,6 @@
 import { load } from "ts-dotenv";
 import fs from "fs";
+import crypto from "crypto";
 
 import handleServerMessage from "./events/serverMessage";
 import handleChatMessage from "./events/chatMessage";
@@ -11,7 +12,6 @@ import pathfinder from "mineflayer-pathfinder";
 import SimpleLimiter from "simple-call-limiter";
 
 import { Vec3 } from "vec3";
-
 import { Viewer, afk } from "./types";
 
 declare module "mineflayer" {
@@ -48,10 +48,9 @@ function createBot() {
 
 	const limiter = new SimpleLimiter(5000);
 	bot.sendMessage = function (message: string) {
-		limiter.run(bot.chat, message);
+		const junk = crypto.randomBytes(8).toString("hex");
+		limiter.run(bot.chat, `${message} | ${junk}`);
 	};
-
-	let registered = false;
 
 	bot.on("messagestr", async (rawMessage) => {
 		try {
@@ -83,6 +82,8 @@ function createBot() {
 		console.log("[INFO] Logging in...");
 		setTimeout(() => {
 			console.log("[INFO] Moving towards portal...");
+
+			let registered = false;
 			if (!registered) {
 				bot.chat("/login " + env["PASSWORD"]);
 				registered = true;

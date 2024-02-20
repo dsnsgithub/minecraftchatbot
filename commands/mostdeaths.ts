@@ -1,7 +1,7 @@
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
 
-export default async function mostdeaths(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB, junk: string) {
+export default async function mostdeaths(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB) {
 	let mostDeaths = 0;
 	let mostDeathsUser = "";
 
@@ -12,5 +12,5 @@ export default async function mostdeaths(bot: Bot, IGN: string, args: string[], 
 		}
 	}
 
-	bot.sendMessage(`${mostDeathsUser} died the most with ${mostDeaths} deaths. | ${junk}`);
+	bot.sendMessage(`${mostDeathsUser} died the most with ${mostDeaths} deaths.`);
 }

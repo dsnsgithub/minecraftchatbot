@@ -3,6 +3,15 @@ import { PlayerDB } from "../types";
 
 import axios from "axios";
 
+import { load } from "ts-dotenv";
+const env = load({
+	PASSWORD: String,
+	WEB: Boolean,
+	PREFIX: String,
+	IGN: String,
+	SERVER: String
+});
+
 const allowedLanguages = [
     "af", "sq", "am", "ar", "hy", "as", "ay", "az", "bm", "eu", "be", "bn", "bho", "bs", "bg", "ca", "ceb", "zh-CN", "zh-TW", "co", 
     "hr", "cs", "da", "dv", "doi", "nl", "en", "eo", "et", "ee", "fil", "fi", "fr", "fy", "gl", "ka", "de", "el", "gn", "gu", "ht", 
@@ -13,14 +22,14 @@ const allowedLanguages = [
     "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
 ];
 
-export default async function translate(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB, junk: string) {
+export default async function translate(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB) {
 	if (!args || !args[0]) {
-		bot.sendMessage("Usage: ?translate [IGN] [optional: messagesSinceLast] [optional: language] | " + junk);
+		bot.sendMessage(`Usage: ${env["PREFIX"]}translate [IGN] [optional: messagesSinceLast] [optional: language]`);
 		return;
 	}
 
 	if (!playerDB[args[0]] || playerDB[args[0]]["messages"].length == 0) {
-		bot.sendMessage("Haven't seen the user send a message yet. | " + junk);
+		bot.sendMessage("Haven't seen the user send a message yet.");
 		return;
 	}
 
@@ -31,7 +40,7 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 
 	if (args[1] && Number(args[1])) {
 		if (Number(args[1]) > userMessages.length) {
-			bot.sendMessage("Haven't seen the user send that many messages yet. | " + junk);
+			bot.sendMessage("Haven't seen the user send that many messages yet.");
 		}
 
 		if (Math.floor(Number(args[1])) >= 1) {
@@ -61,9 +70,9 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 			}
 		});
 
-		bot.sendMessage("Translated: " + data.result + " | " + junk);
+		bot.sendMessage("Translated: " + data.result);
 	} catch (e) {
-		bot.sendMessage("An error occurred while translating. Try again later." + " | " + junk);
+		bot.sendMessage("An error occurred while translating. Try again later.");
 		console.error(e)
 	}
 }

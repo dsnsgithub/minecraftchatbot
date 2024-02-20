@@ -1,7 +1,7 @@
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
 
-export default async function kd(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB, junk: string) {
+export default async function kd(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB) {
 	let user = IGN;
 
 	if (args[0]) {
@@ -22,5 +22,5 @@ export default async function kd(bot: Bot, IGN: string, args: string[], playerDB
 		};
 	}
 
-	bot.sendMessage(`${user} has ${playerDB[user]["kills"]} kills and ${playerDB[user]["deaths"]} deaths. | ${junk}`);
+	bot.sendMessage(`${user} has ${playerDB[user]["kills"]} kills and ${playerDB[user]["deaths"]} deaths.`);
 }
