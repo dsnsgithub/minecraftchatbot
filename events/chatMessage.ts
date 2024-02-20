@@ -24,7 +24,7 @@ const env = load({
 async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 	console.log("[CHAT] " + rawMessage);
 
-	const junk = crypto.randomBytes(4).toString("hex");
+	const junk = crypto.randomBytes(8).toString("hex");
 	const [left, right] = rawMessage.split(" » ");
 
 	const IGN = left.split(" ").length > 1 ? left.split("] ")[1] : left.split(" ")[0];

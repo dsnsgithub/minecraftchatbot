@@ -64,5 +64,6 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 		bot.sendMessage("Translated: " + data.result + " | " + junk);
 	} catch (e) {
 		bot.sendMessage("An error occurred while translating. Try again later." + " | " + junk);
+		console.error(e)
 	}
 }
