@@ -3,7 +3,6 @@ import fs from "fs";
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
 
-
 function addDeath(IGN: string, playerDB: PlayerDB) {
 	if (!playerDB[IGN]) {
 		playerDB[IGN] = {
@@ -77,7 +76,19 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		bot.chat("/tpy " + IGN);
 	}
 
-	const deathTriggers = ["died.", "was killed by", "fell from a high place", "burned to death", "drowned", "starved to death"];
+	const deathTriggers = [
+		"died",
+		"was killed by",
+		"fell from a high place",
+		"burned to death",
+		"drowned",
+		"starved to death",
+		"withered away",
+		"killed themselves",
+		"thought they could swim forever",
+		"shot by",
+		"blew up"
+	];
 	if (deathTriggers.some((trigger) => rawMessage.includes(trigger))) {
 		const IGN = rawMessage.split(" ")[0];
 
@@ -88,6 +99,14 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		const splitMessage = rawMessage.split(" ");
 		const victimIGN = splitMessage[0];
 		const killerIGN = splitMessage[splitMessage.length - 5];
+
+		addKill(victimIGN, killerIGN, playerDB);
+	}
+
+	if (rawMessage.includes("crystalled")) {
+		const splitMessage = rawMessage.split(" ");
+		const killerIGN = splitMessage[0];
+		const victimIGN = splitMessage[2];
 
 		addKill(victimIGN, killerIGN, playerDB);
 	}
