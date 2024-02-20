@@ -44,8 +44,13 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 
 	if (rawMessage.includes("Welcome to 6b6t.org")) {
 		console.log("[INFO] Logged on...");
-		bot.afk.setOptions({ fishing: false, chatting: false });
-		bot.afk.start();
+
+		bot.setControlState("forward", true);
+		bot.setControlState("jump", true);
+		setInterval(() => {
+			bot.look(Math.random() * 2 * Math.PI - Math.PI, Math.random() * Math.PI - Math.PI / 2);
+			bot.swingArm("right", Math.random() > 0.5);
+		}, 1000);
 
 		bot.chat("/deathmsgs on");
 		bot.chat("/connectionmsgs on");
