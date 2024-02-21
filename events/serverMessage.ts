@@ -106,8 +106,17 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 
 	for (const keyword in messageKeywords) {
 		if (rawMessage.includes(keyword)) {
-			const { victimIndex, killerIndex } = messageKeywords[keyword as keyof typeof messageKeywords];
+			let { victimIndex, killerIndex } = messageKeywords[keyword as keyof typeof messageKeywords];
 			const splitMessage = rawMessage.split(" ");
+
+			if (victimIndex < 0) {
+				victimIndex = splitMessage.length + victimIndex;
+			}
+			
+			if (killerIndex < 0) {
+				killerIndex = splitMessage.length + killerIndex;
+			}
+
 			const victimIGN = splitMessage[victimIndex];
 			const killerIGN = splitMessage[killerIndex];
 
