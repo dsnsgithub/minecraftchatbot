@@ -31,6 +31,7 @@ async function handleChatMessage(bot: Bot, rawMessage: string, playerDB: PlayerD
 	const command = right.split(" ")[0].substring(1);
 
 	if (IGN == env["IGN"]) return;
+	if (!IGN) return;
 
 	// chat history
 	if (cmd.charAt(0) != env["PREFIX"]) {
