@@ -13,13 +13,140 @@ const env = load({
 });
 
 const allowedLanguages = [
-    "af", "sq", "am", "ar", "hy", "as", "ay", "az", "bm", "eu", "be", "bn", "bho", "bs", "bg", "ca", "ceb", "zh-CN", "zh-TW", "co", 
-    "hr", "cs", "da", "dv", "doi", "nl", "en", "eo", "et", "ee", "fil", "fi", "fr", "fy", "gl", "ka", "de", "el", "gn", "gu", "ht", 
-    "ha", "haw", "he", "hi", "hmn", "hu", "is", "ig", "ilo", "id", "ga", "it", "ja", "jv", "kn", "kk", "km", "rw", "gom", "ko", "kri", 
-    "ku", "ckb", "ky", "lo", "la", "lv", "ln", "lt", "lg", "lb", "mk", "mai", "mg", "ms", "ml", "mt", "mi", "mr", "mni-Mtei", "lus", 
-    "mn", "my", "ne", "no", "ny", "or", "om", "ps", "fa", "pl", "pt", "pa", "qu", "ro", "ru", "sm", "sa", "gd", "nso", "sr", "st", 
-    "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "ti", "ts", "tr", "tk", "ak", 
-    "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
+	"af",
+	"sq",
+	"am",
+	"ar",
+	"hy",
+	"as",
+	"ay",
+	"az",
+	"bm",
+	"eu",
+	"be",
+	"bn",
+	"bho",
+	"bs",
+	"bg",
+	"ca",
+	"ceb",
+	"zh-CN",
+	"zh-TW",
+	"co",
+	"hr",
+	"cs",
+	"da",
+	"dv",
+	"doi",
+	"nl",
+	"en",
+	"eo",
+	"et",
+	"ee",
+	"fil",
+	"fi",
+	"fr",
+	"fy",
+	"gl",
+	"ka",
+	"de",
+	"el",
+	"gn",
+	"gu",
+	"ht",
+	"ha",
+	"haw",
+	"he",
+	"hi",
+	"hmn",
+	"hu",
+	"is",
+	"ig",
+	"ilo",
+	"id",
+	"ga",
+	"it",
+	"ja",
+	"jv",
+	"kn",
+	"kk",
+	"km",
+	"rw",
+	"gom",
+	"ko",
+	"kri",
+	"ku",
+	"ckb",
+	"ky",
+	"lo",
+	"la",
+	"lv",
+	"ln",
+	"lt",
+	"lg",
+	"lb",
+	"mk",
+	"mai",
+	"mg",
+	"ms",
+	"ml",
+	"mt",
+	"mi",
+	"mr",
+	"mni-Mtei",
+	"lus",
+	"mn",
+	"my",
+	"ne",
+	"no",
+	"ny",
+	"or",
+	"om",
+	"ps",
+	"fa",
+	"pl",
+	"pt",
+	"pa",
+	"qu",
+	"ro",
+	"ru",
+	"sm",
+	"sa",
+	"gd",
+	"nso",
+	"sr",
+	"st",
+	"sn",
+	"sd",
+	"si",
+	"sk",
+	"sl",
+	"so",
+	"es",
+	"su",
+	"sw",
+	"sv",
+	"tl",
+	"tg",
+	"ta",
+	"tt",
+	"te",
+	"th",
+	"ti",
+	"ts",
+	"tr",
+	"tk",
+	"ak",
+	"uk",
+	"ur",
+	"ug",
+	"uz",
+	"vi",
+	"cy",
+	"xh",
+	"yi",
+	"yo",
+	"zu"
 ];
 
 export default async function translate(bot: Bot, IGN: string, args: string[], playerDB: PlayerDB) {
@@ -71,8 +198,26 @@ export default async function translate(bot: Bot, IGN: string, args: string[], p
 		});
 
 		bot.sendMessage("Translated: " + data.result);
-	} catch (e) {
-		bot.sendMessage("An error occurred while translating. Try again later.");
-		console.error(e)
+	} catch (error) {
+		console.error(error);
+
+		// wait and try again after 2 seconds
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+
+		try {
+			const { data } = await axios.get("https://t.song.work/api", {
+				params: {
+					text: translateMessage,
+					from: "auto",
+					to: language,
+					lite: true
+				}
+			});
+
+			bot.sendMessage("Translated: " + data.result);
+		} catch (lastError) {
+			bot.sendMessage("An error occurred while translating. Try again later.");
+			console.error(lastError);
+		}
 	}
 }
