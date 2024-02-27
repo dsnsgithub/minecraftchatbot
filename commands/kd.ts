@@ -22,5 +22,5 @@ export default async function kd(bot: Bot, IGN: string, args: string[], playerDB
 		};
 	}
 
-	bot.sendMessage(`${user} has ${playerDB[user]["kills"]} kills and ${playerDB[user]["deaths"]} deaths.`);
+	bot.sendMessage(`${user} has ${playerDB[user]["kills"]} kill${playerDB[user]["kills"] == 1 ? "" : "s"} and ${playerDB[user]["deaths"]} death${playerDB[user]["deaths"] == 1 ? "" : "s"}.`);
 }
