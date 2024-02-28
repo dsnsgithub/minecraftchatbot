@@ -23,11 +23,11 @@ This is a Minecraft Chat Bot that allows for communication between people who sp
 - **Usage**: `?kd [optional: IGN]`
 
 5. Most Kills Command
-- **Description**: This command displays the player who has the highest number of kills along with their kill count.
+- **Description**: This command displays the top 3 players with the most kills along with their kill count.
 - **Usage**: `?mostkills`
 
 6. Most Deaths Command
-- **Description**: This command displays the player who has the highest number of deaths along with their death count.
+- **Description**: This command displays the top 3 players with the most deaths along with their death count.
 - **Usage**: `?mostdeaths`
 
 
@@ -35,7 +35,6 @@ This is a Minecraft Chat Bot that allows for communication between people who sp
 - **Mineflayer**: A library for creating Minecraft bots in Node.js.
 - **Prismarine Viewer**: Provides visualization capabilities for the Minecraft world.
 - **Mineflayer Pathfinder**: Adds pathfinding functionality to the bot, allowing it to navigate through the game world.
-- **Mineflayer Anti-AFK**: Plugin to prevent the bot from going AFK (Away From Keyboard).
 - **Axios**: HTTP client for making requests to external APIs.
 
 ## Usage
