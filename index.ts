@@ -7,7 +7,6 @@ import handleChatMessage from "./events/chatMessage";
 
 import mineflayer from "mineflayer";
 import { mineflayer as prismarineViewer } from "prismarine-viewer"; // Corrected import
-import antiafk from "mineflayer-antiafk";
 import pathfinder from "mineflayer-pathfinder";
 import SimpleLimiter from "simple-call-limiter";
 
