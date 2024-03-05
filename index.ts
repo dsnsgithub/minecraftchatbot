@@ -73,7 +73,7 @@ function createBot() {
 
 	bot.once("spawn", () => {
 		if (env["WEB"]) {
-			// port is the minecraft server port, if first person is false, you get a bird's-eye view
+			// if first person is false, you get a bird's-eye view
 			prismarineViewer(bot, { port: 3007, firstPerson: false });
 		}
 
@@ -87,7 +87,7 @@ function createBot() {
 				registered = true;
 			}
 
-			// navigates towards portal
+			// navigates towards portal (change depending on server type)
 			bot.pathfinder.setGoal(new pathfinder.goals.GoalNear(-999.5, 101, -987.6265996179612, 0));
 		}, 5000);
 	});

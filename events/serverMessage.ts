@@ -1,7 +1,16 @@
 import fs from "fs";
+import { load } from "ts-dotenv";
 
 import { Bot } from "mineflayer";
 import { PlayerDB } from "../types";
+
+const env = load({
+	PASSWORD: String,
+	WEB: Boolean,
+	PREFIX: String,
+	IGN: String,
+	SERVER: String
+});
 
 function addDeath(IGN: string, playerDB: PlayerDB) {
 	if (!playerDB[IGN]) {
@@ -55,14 +64,14 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		bot.chat("/connectionmsgs on");
 
 		const preMadeSentences = [
-			"Teleport to spawn with /tpa DSNSbot",
-			"/tpa DSNSbot to teleport back to spawn",
-			"Want to get back to spawn? /tpa DSNSbot",
-			"Interested in going back to spawn? Try /tpa DSNSbot",
-			"Use /tpa DSNSbot to instantly teleport to the spawn area",
-			"Want to respawn quickly? Use /tpa DSNSbot",
-			"Ready to teleport to spawn? Type /tpa DSNSbot",
-			"Teleport directly to spawn by typing /tpa DSNSbot"
+			`Teleport to spawn with /tpa ${env["IGN"]}`,
+			`/tpa ${env["IGN"]} to teleport back to spawn`,
+			`Want to get back to spawn? /tpa ${env["IGN"]}`,
+			`Interested in going back to spawn? Try /tpa ${env["IGN"]}`,
+			`Use /tpa ${env["IGN"]} to instantly teleport to the spawn area`,
+			`Want to respawn quickly? Use /tpa ${env["IGN"]}`,
+			`Ready to teleport to spawn? Type /tpa ${env["IGN"]}`,
+			`Teleport directly to spawn by typing /tpa ${env["IGN"]}`
 		];
 
 		setInterval(() => {

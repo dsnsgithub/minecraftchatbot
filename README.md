@@ -47,4 +47,6 @@ This is a Minecraft Chat Bot that allows for communication between people who sp
    - `PREFIX`: Prefix for bot commands (e.g., `?`)
    - `PASSWORD`: Bot's login password (if applicable)
    - `WEB`: Whether to enable web visualization (`true` or `false`)
-4. Run the bot using `node .`
+4. Create a `db` directory, place `playerDB.json` inside it.
+5. Place `{}` inside the `playerDB.json` file.
+5. Run the bot using `ts-node .`
