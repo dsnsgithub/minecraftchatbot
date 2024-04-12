@@ -7,7 +7,7 @@ This is a Minecraft Chat Bot that allows for communication between people who sp
 ## Features
 
 1. Translate Command
-- **Description**: This command allows users to request translation of messages from other players using the [Translateer API](https://t.song.work/).
+- **Description**: This command allows users to request translation of messages from other players using the [Translateer API](https://github.com/Songkeys/Translateer).
 - **Usage**: `?translate [IGN] [optional: messagesSinceLast] [optional: language]`
    
 2. Help Command
