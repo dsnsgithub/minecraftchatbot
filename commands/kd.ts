@@ -5,11 +5,13 @@ export default async function kd(bot: Bot, IGN: string, args: string[], playerDB
 	let user = IGN;
 
 	if (args[0]) {
-		if (playerDB[args[0]]) {
-			user = args[0];
+		const lowercaseArg = args[0].toLowerCase();
+		const matchingPlayer = Object.keys(playerDB).find((key) => key.toLowerCase() === lowercaseArg);
+		if (matchingPlayer) {
+			user = matchingPlayer;
 		} else {
-			if (bot.players[args[0]]) {
-				user = args[0];
+			if (bot.players[lowercaseArg]) {
+				user = lowercaseArg;
 			}
 		}
 	}
