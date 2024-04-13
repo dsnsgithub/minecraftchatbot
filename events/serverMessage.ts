@@ -68,8 +68,8 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 			`/tpa ${env["IGN"]} to teleport back to spawn`,
 			`Want to get back to spawn? /tpa ${env["IGN"]}`,
 			`Interested in going back to spawn? Try /tpa ${env["IGN"]}`,
-			`Use /tpa ${env["IGN"]} to instantly teleport to the spawn area`,
-			`Want to respawn quickly? Use /tpa ${env["IGN"]}`,
+			`Check a player's KD with ?kd [IGN]`,
+			`Want to check your KD? Type ?kd [IGN]`,
 			`Ready to teleport to spawn? Type /tpa ${env["IGN"]}`,
 			`Teleport directly to spawn by typing /tpa ${env["IGN"]}`
 		];
@@ -97,7 +97,7 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 		"thought they could swim forever",
 		"shot by",
 		"blew up",
-		"slain by a Zombie",
+		"slain by a Zombie"
 	];
 
 	if (deathTriggers.some((trigger) => rawMessage.includes(trigger))) {
@@ -121,7 +121,7 @@ function handleServerMessage(bot: Bot, rawMessage: string, playerDB: PlayerDB) {
 			if (victimIndex < 0) {
 				victimIndex = splitMessage.length + victimIndex;
 			}
-			
+
 			if (killerIndex < 0) {
 				killerIndex = splitMessage.length + killerIndex;
 			}

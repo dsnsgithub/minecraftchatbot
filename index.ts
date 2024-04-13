@@ -11,12 +11,11 @@ import pathfinder from "mineflayer-pathfinder";
 import SimpleLimiter from "simple-call-limiter";
 
 import { Vec3 } from "vec3";
-import { Viewer, afk } from "./types";
+import { Viewer } from "./types";
 
 declare module "mineflayer" {
 	interface Bot {
 		viewer: Viewer;
-		afk: afk;
 		queue: string[];
 		lastMessageSentTime: number;
 		sendMessage(message: string): void;
